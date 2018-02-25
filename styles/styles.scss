@@ -1,0 +1,39 @@
+
+$font-family-sans-serif: 'Lato', sans-serif;
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  padding-top: 4rem;
+}
+
+.text-large {
+  font-size: $font-size-lg
+}
+
+.app {
+  // @TODO The position should be configurable.
+  background-position: bottom right;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+header {
+  background-color: rgba($white, 0.9);
+  h1 {
+    font-family: 'Kaushan Script', cursive;
+  }
+}
+
+h4 {
+  border-bottom: 1px solid $gray-200;
+}
+
+section {
+  background-color: rgba($white, 0.95);
+  margin-top: calc( 100vh - 9.25rem);
+}

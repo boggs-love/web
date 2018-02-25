@@ -1,0 +1,10 @@
+{
+	"minify": false,
+	"classPrefix": "modernizr-",
+	"enableJSClass": false,
+	"enableClasses": false,
+	"options": [],
+	"feature-detects": [
+		"test/img/webp"
+	]
+}
