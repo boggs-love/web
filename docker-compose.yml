@@ -1,0 +1,21 @@
+version: '3'
+services:
+  ingress:
+    image: geosocio/ingress
+    links:
+      - api
+      - web
+  api:
+    image: boggswedding/api
+    env_file:
+      - .env
+    volumes:
+      - database:/var/www/var/data
+  web:
+    build:
+      context: ./
+    image: boggswedding/web
+    links:
+      - api
+volumes:
+  database:

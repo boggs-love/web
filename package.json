@@ -3,7 +3,7 @@
   "description": "Web UI of the Boggs Wedding Website",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -H 0.0.0.0 -p 80",
     "build": "gatsby build",
     "serve": "gatsby serve"
   },
@@ -28,6 +28,7 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "detect-port": "^1.2.2",
     "eslint": "^4.18.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
