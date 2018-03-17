@@ -11,16 +11,40 @@ body {
   font-size: $font-size-lg
 }
 
-.app {
+// Mobile Safari & Chrome do not support background-attachment: fixed so this
+// is a work-around.
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
   // @TODO The position should be configurable.
   background-position: bottom right;
-  background-attachment: fixed;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  width: 100%;
+  height: 100vh;
 }
+
+// This would be a better way to do it... but doesn't work in mobile browsers.
+// If mobile browsers start adding proper support for background-attachment and
+// background-size then we should switch to this.
+// .app {
+//   background-position: bottom right;
+//   background-attachment: fixed;
+//   background-repeat: no-repeat;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+// }
 
 header {
   background-color: rgba($white, 0.9);

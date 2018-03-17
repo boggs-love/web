@@ -66,7 +66,7 @@ class Background extends React.Component {
               only screen and (-webkit-min-device-pixel-ratio: ${dppx}),
               only screen and (min-device-pixel-ratio: ${dppx}),
               only screen and (min-resolution: ${dppx}dppx) {
-                .app {
+                .background {
                   background-image: url('${src}');
                 }
               }
@@ -78,7 +78,7 @@ class Background extends React.Component {
             only screen and (max-width: ${size.width}px) and (-webkit-min-device-pixel-ratio: ${dppx}),
             only screen and (max-width: ${size.width}px) and (min-device-pixel-ratio: ${dppx}),
             only screen and (max-width: ${size.width}px) and (min-resolution: ${dppx}dppx) {
-              .app {
+              .background {
                 background-image: url('${src}');
               }
             }
@@ -87,11 +87,14 @@ class Background extends React.Component {
     )).join('\n');
 
     return (
-      <Helmet>
-        <style>
-          {styles}
-        </style>
-      </Helmet>
+      <div className="background-wrapper">
+        <Helmet>
+          <style>
+            {styles}
+          </style>
+        </Helmet>
+        <div className="background" />
+      </div>
     );
   }
 }
