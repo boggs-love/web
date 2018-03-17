@@ -3,7 +3,7 @@ services:
   web:
     build:
       dockerfile: Dockerfile.local
-    image: boggswedding/web:local
+    image: boggs/web:local
     volumes:
       - ./:/app
   ingress:

@@ -63,6 +63,7 @@ class Background extends React.Component {
         if (first === size) {
           return `
             @media
+              only screen and (-webkit-min-device-pixel-ratio: ${dppx}),
               only screen and (min-device-pixel-ratio: ${dppx}),
               only screen and (min-resolution: ${dppx}dppx) {
                 .app {
@@ -74,6 +75,7 @@ class Background extends React.Component {
 
         return `
           @media
+            only screen and (max-width: ${size.width}px) and (-webkit-min-device-pixel-ratio: ${dppx}),
             only screen and (max-width: ${size.width}px) and (min-device-pixel-ratio: ${dppx}),
             only screen and (max-width: ${size.width}px) and (min-resolution: ${dppx}dppx) {
               .app {

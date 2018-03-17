@@ -6,7 +6,7 @@ services:
       - api
       - web
   api:
-    image: boggswedding/api
+    image: boggs/api
     env_file:
       - .env
     volumes:
@@ -14,7 +14,7 @@ services:
   web:
     build:
       context: ./
-    image: boggswedding/web
+    image: boggs/web
     links:
       - api
 volumes:
