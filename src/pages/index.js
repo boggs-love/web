@@ -4,12 +4,14 @@ import Helmet from 'react-helmet';
 import 'styles/styles.scss';
 import Form from 'app/components/form';
 import Background from 'app/components/background';
+import Stylesheet from 'app/components/stylesheet';
 
 const Index = ({ data }) => (
   <div>
     <Helmet>
       <title>{data.site.siteMetadata.title}</title>
     </Helmet>
+    <Stylesheet href="https://fonts.googleapis.com/css?family=Kaushan+Script|Lato" />
     <Background data={data.background} />
     <div className="app">
       <header className="fixed-top pt-1 pb-1">

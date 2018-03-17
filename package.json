@@ -24,8 +24,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-helmet": "^5.2.0",
-    "react-jsonschema-form": "^1.0.1",
-    "webfontloader": "^1.6.28"
+    "react-jsonschema-form": "^1.0.1"
   },
   "devDependencies": {
     "detect-port": "^1.2.2",
