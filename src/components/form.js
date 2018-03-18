@@ -80,19 +80,57 @@ const uiSchema = {
   },
 };
 
-const Form = () => (
-  <SchemaForm
-    schema={schema}
-    uiSchema={uiSchema}
-    widgets={widgets}
-    ArrayFieldTemplate={ArrayField}
-  >
-    <input
-      type="submit"
-      className="btn btn-outline-primary btn-lg btn-block"
-      value="Respond"
-    />
-  </SchemaForm>
-);
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      disabled: false,
+      formData: undefined,
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({
+      ...this.state,
+      formData: event.formData
+    });
+  }
+
+  onSubmit(event) {
+    this.setState({
+      ...this.state,
+      disabled: true,
+    });
+  }
+
+  render() {
+    return (
+      <SchemaForm
+        schema={schema}
+        uiSchema={{
+          ...uiSchema,
+          'ui:disabled': this.state.disabled,
+        }}
+        widgets={widgets}
+        ArrayFieldTemplate={ArrayField}
+        formData={this.state.formData}
+        onChange={this.onChange}
+        onSubmit={this.onSubmit}
+        disabled={this.state.disabled}
+      >
+        <input
+          type="submit"
+          className="btn btn-outline-primary btn-lg btn-block"
+          value="Respond"
+          disabled={this.state.disabled}
+        />
+      </SchemaForm>
+    );
+  }
+}
 
 export default Form;

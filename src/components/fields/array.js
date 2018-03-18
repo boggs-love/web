@@ -8,6 +8,7 @@ const ArrayField = ({
   items,
   canAdd,
   onAddClick,
+  disabled,
 }) => {
   let itemDisplay;
   if (items) {
@@ -16,6 +17,7 @@ const ArrayField = ({
       if (element.hasMoveDown) {
         moveDownDisplay = (
           <button
+            disabled={disabled}
             onClick={element.onReorderClick(
               element.index,
               element.index + 1,
@@ -30,6 +32,7 @@ const ArrayField = ({
       if (element.hasMoveUp) {
         moveUpDisplay = (
           <button
+            disabled={disabled}
             onClick={element.onReorderClick(
               element.index,
               element.index - 1,
@@ -47,6 +50,7 @@ const ArrayField = ({
             <button
               className="btn  btn-link d-inline align-baseline"
               onClick={element.onDropIndexClick(element.index)}
+              disabled={disabled}
             >
               remove
             </button>
@@ -66,7 +70,7 @@ const ArrayField = ({
   let addDisplay;
   if (canAdd) {
     addDisplay = (
-      <button className="btn btn-link d-block p-0" onClick={onAddClick}>
+      <button className="btn btn-link d-block p-0" onClick={onAddClick} disabled={disabled}>
         Add a {schema.single}
       </button>
     );
@@ -95,6 +99,7 @@ ArrayField.propTypes = {
     onReorderClick: PropTypes.func,
     onDropIndexClick: PropTypes.func,
   })),
+  disabled: PropTypes.bool.isRequired,
   canAdd: PropTypes.bool,
   onAddClick: PropTypes.func.isRequired,
 };
