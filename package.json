@@ -21,10 +21,12 @@
     "immutable": "^3.8.2",
     "modernizr": "^3.5.0",
     "modernizr-loader": "^1.0.1",
+    "promise-polyfill": "^7.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-helmet": "^5.2.0",
-    "react-jsonschema-form": "^1.0.1"
+    "react-jsonschema-form": "^1.0.1",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "detect-port": "^1.2.2",

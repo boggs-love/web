@@ -96,14 +96,41 @@ class Form extends React.Component {
   onChange(event) {
     this.setState({
       ...this.state,
-      formData: event.formData
+      formData: event.formData,
     });
   }
 
   onSubmit(event) {
+    /* eslint-env browser */
     this.setState({
       ...this.state,
       disabled: true,
+    });
+
+    // Submit the RSVP
+    fetch('/api/rsvp', {
+      method: 'POST',
+      body: JSON.stringify(event.formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        const error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+
+      this.setState({
+        ...this.state,
+        disabled: false,
+        formData: undefined,
+      });
+
+      return response;
+    }).catch((error) => {
+      // Do something? handle validation errors?
+      console.error(error);
     });
   }
 
