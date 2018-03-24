@@ -17,6 +17,7 @@
     "gatsby-plugin-sass": "^1.0.17",
     "gatsby-plugin-sharp": "^1.6.30",
     "gatsby-source-filesystem": "^1.5.20",
+    "gatsby-transformer-remark": "^1.7.37",
     "gatsby-transformer-sharp": "^1.6.19",
     "immutable": "^3.8.2",
     "modernizr": "^3.5.0",
@@ -26,6 +27,7 @@
     "react": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-jsonschema-form": "^1.0.1",
+    "reactstrap": "^5.0.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

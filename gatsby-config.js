@@ -1,24 +1,25 @@
 module.exports = {
   // @TODO Use ENV
   siteMetadata: {
-    title: 'A + J'
+    title: 'A + J',
   },
   plugins: [
-    'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-transformer-remark',
+    'gatsby-plugin-sharp',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'pictures',
-        path: `${__dirname}/content/pictures/`,
+        name: 'content',
+        path: `${__dirname}/content/`,
       },
     },
     {
       resolve: 'gatsby-plugin-sass',
       options: {
         precision: 8,
-      }
-    }
-  ]
-}
+      },
+    },
+  ],
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'reactstrap';
 import SchemaForm from 'react-jsonschema-form';
 import RadioWidget from './widgets/radio';
 import ArrayField from './fields/array';
@@ -11,15 +12,24 @@ const names = {
   firstName: {
     type: 'string',
     title: 'First Name',
+    maxLength: 255,
   },
   lastName: {
     type: 'string',
     title: 'Last Name',
+    maxLength: 255,
   },
 };
 
 const schema = {
   type: 'object',
+  required: [
+    'attending',
+    'firstName',
+    'lastName',
+    'email',
+    'phone',
+  ],
   properties: {
     attending: {
       type: 'boolean',
@@ -33,10 +43,14 @@ const schema = {
     email: {
       type: 'string',
       title: 'Email',
+      format: 'email',
+      maxLength: 255,
     },
     phone: {
       type: 'string',
       title: 'Phone',
+      minLength: 10,
+      maxLength: 20,
     },
     guest: {
       title: 'Additional Guests',
@@ -60,11 +74,6 @@ const uiSchema = {
   attending: {
     'ui:widget': 'radio',
   },
-  email: {
-    'ui:options': {
-      inputType: 'email',
-    },
-  },
   phone: {
     'ui:options': {
       inputType: 'tel',
@@ -86,17 +95,31 @@ class Form extends React.Component {
 
     this.state = {
       disabled: false,
+      hasErrors: false,
+      liveValidate: false,
       formData: undefined,
+      error: undefined,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onError = this.onError.bind(this);
   }
 
   onChange(event) {
     this.setState({
       ...this.state,
+      error: undefined,
+      hasErrors: false,
       formData: event.formData,
+    });
+  }
+
+  onError() {
+    this.setState({
+      ...this.state,
+      hasErrors: true,
+      liveValidate: true,
     });
   }
 
@@ -105,6 +128,8 @@ class Form extends React.Component {
     this.setState({
       ...this.state,
       disabled: true,
+      liveValidate: false,
+      error: undefined,
     });
 
     // Submit the RSVP
@@ -114,10 +139,10 @@ class Form extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((response) => {
+    }).then(async (response) => {
       if (!response.ok) {
         const error = new Error(response.statusText);
-        error.response = response;
+        error.response = await response.json();
         throw error;
       }
 
@@ -129,33 +154,72 @@ class Form extends React.Component {
 
       return response;
     }).catch((error) => {
-      // Do something? handle validation errors?
-      console.error(error);
+      this.setState({
+        ...this.state,
+        disabled: false,
+        error,
+      });
     });
   }
 
   render() {
+    let error;
+    let submitClassName = [
+      'btn',
+      'btn-block',
+      'btn-lg',
+    ];
+
+    if (this.state.error || this.state.hasErrors) {
+      submitClassName = [
+        ...submitClassName,
+        'btn-outline-danger',
+      ];
+    } else {
+      submitClassName = [
+        ...submitClassName,
+        'btn-outline-primary',
+      ];
+    }
+
+    if (this.state.error && this.state.error.response && this.state.error.response.message) {
+      error = (
+        <Alert color="danger">
+          {this.state.error.response.message}
+        </Alert>
+      );
+    }
+
     return (
-      <SchemaForm
-        schema={schema}
-        uiSchema={{
-          ...uiSchema,
-          'ui:disabled': this.state.disabled,
-        }}
-        widgets={widgets}
-        ArrayFieldTemplate={ArrayField}
-        formData={this.state.formData}
-        onChange={this.onChange}
-        onSubmit={this.onSubmit}
-        disabled={this.state.disabled}
-      >
-        <input
-          type="submit"
-          className="btn btn-outline-primary btn-lg btn-block"
-          value="Respond"
+      <div>
+        {error}
+        <SchemaForm
+          schema={schema}
+          className={this.state.liveValidate ? 'was-validated' : undefined}
+          uiSchema={{
+            ...uiSchema,
+            'ui:disabled': this.state.disabled,
+          }}
+          widgets={widgets}
+          ArrayFieldTemplate={ArrayField}
+          formData={this.state.formData}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          onError={this.onError}
           disabled={this.state.disabled}
-        />
-      </SchemaForm>
+          liveValidate={this.state.liveValidate}
+          showErrorList={false}
+          // A bug in Firefox/Bootstrap shows all the form fields as required on page load.
+          noHtml5Validate
+        >
+          <input
+            type="submit"
+            className={submitClassName.join(' ')}
+            value="Respond"
+            disabled={this.state.disabled}
+          />
+        </SchemaForm>
+      </div>
     );
   }
 }

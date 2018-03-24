@@ -29,11 +29,7 @@ class Background extends React.Component {
       return null;
     }
 
-    if (!this.props.data.edges[0]) {
-      return null;
-    }
-
-    const sizes = new OrderedMap(this.props.data.edges[0].node)
+    const sizes = new OrderedMap(this.props.data.sizes)
       // Sort from largest to smallest.
       .sortBy(size => size.width)
       .reverse()
@@ -101,7 +97,7 @@ class Background extends React.Component {
 
 Background.propTypes = {
   data: PropTypes.shape({
-    edges: PropTypes.array,
+    sizes: PropTypes.array,
   }).isRequired,
 };
 
