@@ -25,7 +25,7 @@ const Index = ({ data }) => (
                 <div className="row">
                   <div className="col-12">
                     <h4 className="text-center">RSVP</h4>
-                    <Form />
+                    <Form accepted={data.accepted} declined={data.declined} />
                   </div>
                 </div>
               </div>

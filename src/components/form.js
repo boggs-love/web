@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Alert } from 'reactstrap';
 import SchemaForm from 'react-jsonschema-form';
 import RadioWidget from './widgets/radio';
@@ -94,9 +95,7 @@ class Form extends React.Component {
     super(props);
 
     this.state = {
-      disabled: false,
-      hasErrors: false,
-      liveValidate: false,
+      status: 'ready',
       formData: undefined,
       error: undefined,
     };
@@ -104,13 +103,14 @@ class Form extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onError = this.onError.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   onChange(event) {
     this.setState({
       ...this.state,
       error: undefined,
-      hasErrors: false,
+      status: this.state.status === 'has-errors' ? 'validating' : this.state.status,
       formData: event.formData,
     });
   }
@@ -118,7 +118,7 @@ class Form extends React.Component {
   onError() {
     this.setState({
       ...this.state,
-      hasErrors: true,
+      status: 'has-errors',
       liveValidate: true,
     });
   }
@@ -127,8 +127,7 @@ class Form extends React.Component {
     /* eslint-env browser */
     this.setState({
       ...this.state,
-      disabled: true,
-      liveValidate: false,
+      status: 'sending',
       error: undefined,
     });
 
@@ -148,21 +147,39 @@ class Form extends React.Component {
 
       this.setState({
         ...this.state,
-        disabled: false,
-        formData: undefined,
+        status: 'done',
       });
 
       return response;
     }).catch((error) => {
       this.setState({
         ...this.state,
-        disabled: false,
+        status: 'error',
         error,
       });
     });
   }
 
+  onDismiss() {
+    this.setState({
+      ...this.state,
+      formData: undefined,
+      status: 'ready',
+    });
+  }
+
   render() {
+    if (this.state.status === 'done') {
+      const { data } = this.state.formData.attending ? this.props.accepted : this.props.declined;
+
+      return (
+        <Alert color={this.state.formData.attending ? 'success' : 'info'} toggle={this.onDismiss}>
+          <h5 className="alert-heading">{data.meta.title}</h5>
+          <div dangerouslySetInnerHTML={{ __html: data.html }} />
+        </Alert>
+      );
+    }
+
     let error;
     let submitClassName = [
       'btn',
@@ -170,7 +187,7 @@ class Form extends React.Component {
       'btn-lg',
     ];
 
-    if (this.state.error || this.state.hasErrors) {
+    if (this.state.error || this.state.status === 'has-errors') {
       submitClassName = [
         ...submitClassName,
         'btn-outline-danger',
@@ -190,12 +207,15 @@ class Form extends React.Component {
       );
     }
 
+    const disabled = this.state.status === 'sending';
+    const liveValidate = ['has-errors', 'validating'].includes(this.state.status);
+
     return (
       <div>
         {error}
         <SchemaForm
           schema={schema}
-          className={this.state.liveValidate ? 'was-validated' : undefined}
+          className={liveValidate ? 'was-validated' : undefined}
           uiSchema={{
             ...uiSchema,
             'ui:disabled': this.state.disabled,
@@ -206,8 +226,8 @@ class Form extends React.Component {
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           onError={this.onError}
-          disabled={this.state.disabled}
-          liveValidate={this.state.liveValidate}
+          disabled={disabled}
+          liveValidate={liveValidate}
           showErrorList={false}
           // A bug in Firefox/Bootstrap shows all the form fields as required on page load.
           noHtml5Validate
@@ -216,12 +236,26 @@ class Form extends React.Component {
             type="submit"
             className={submitClassName.join(' ')}
             value="Respond"
-            disabled={this.state.disabled}
+            disabled={disabled}
           />
         </SchemaForm>
       </div>
     );
   }
 }
+
+const contentShape = {
+  data: PropTypes.shape({
+    meta: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+    }).isRequired,
+    html: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+Form.propTypes = {
+  accepted: PropTypes.shape(contentShape).isRequired,
+  declined: PropTypes.shape(contentShape).isRequired,
+};
 
 export default Form;

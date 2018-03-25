@@ -97,7 +97,7 @@ class Background extends React.Component {
 
 Background.propTypes = {
   data: PropTypes.shape({
-    sizes: PropTypes.array,
+    sizes: PropTypes.object,
   }).isRequired,
 };
 
