@@ -4,7 +4,6 @@ import { Alert } from 'reactstrap';
 import SchemaForm from 'react-jsonschema-form';
 import RadioWidget from './widgets/radio';
 import ArrayField from './fields/array';
-/* global fetch */
 
 const widgets = {
   RadioWidget,
@@ -125,6 +124,7 @@ class Form extends React.Component {
   }
 
   onSubmit(event) {
+    /* eslint-env browser */
     this.setState({
       ...this.state,
       status: 'sending',
@@ -138,20 +138,22 @@ class Form extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(async (response) => {
-      if (!response.ok) {
-        const error = new Error(response.statusText);
-        error.response = await response.json();
-        throw error;
-      }
+    }).then(response => (
+      response.json().then((json) => {
+        if (!response.ok) {
+          const error = new Error(response.statusText);
+          error.response = json;
+          throw error;
+        }
 
-      this.setState({
-        ...this.state,
-        status: 'done',
-      });
+        this.setState({
+          ...this.state,
+          status: 'done',
+        });
 
-      return response;
-    }).catch((error) => {
+        return json;
+      })
+    )).catch((error) => {
       this.setState({
         ...this.state,
         status: 'error',
