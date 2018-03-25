@@ -25,7 +25,7 @@ const Index = ({ data }) => (
                 <div className="row">
                   <div className="col-12">
                     <h4 className="text-center">RSVP</h4>
-                    <Form />
+                    <Form accepted={data.accepted} declined={data.declined} />
                   </div>
                 </div>
               </div>
@@ -52,26 +52,30 @@ query MainQuery {
       title
     }
   }
-  background: allImageSharp(limit: 1) {
-    edges {
-      node {
-        xs: resolutions(width: 576, quality: 85) {
-          ...backgroundImageFields
-        }
-        sm: resolutions(width: 768, quality: 85) {
-          ...backgroundImageFields
-        }
-        md: resolutions(width: 992, quality: 85) {
-          ...backgroundImageFields
-        }
-        lg: resolutions(width: 1200, quality: 85) {
-          ...backgroundImageFields
-        }
-        xl: resolutions(width: 1920, quality: 85) {
-          ...backgroundImageFields
-        }
+  background: file(name: {eq: "background"}) {
+    sizes: childImageSharp {
+      xs: resolutions(width: 576, quality: 85) {
+        ...backgroundImageFields
+      }
+      sm: resolutions(width: 768, quality: 85) {
+        ...backgroundImageFields
+      }
+      md: resolutions(width: 992, quality: 85) {
+        ...backgroundImageFields
+      }
+      lg: resolutions(width: 1200, quality: 85) {
+        ...backgroundImageFields
+      }
+      xl: resolutions(width: 1920, quality: 85) {
+        ...backgroundImageFields
       }
     }
+  }
+  accepted: file(name: {eq: "accepted"}) {
+    ...markdownFile
+  }
+  declined: file(name: {eq: "declined"}) {
+    ...markdownFile
   }
 }
 
@@ -79,6 +83,15 @@ fragment backgroundImageFields on ImageSharpResolutions {
   width
   srcSet
   srcSetWebp
+}
+
+fragment markdownFile on File {
+  data: childMarkdownRemark {
+    meta: frontmatter {
+      title
+    }
+    html
+  }
 }
 `;
 
