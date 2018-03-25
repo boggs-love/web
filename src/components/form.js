@@ -4,6 +4,7 @@ import { Alert } from 'reactstrap';
 import SchemaForm from 'react-jsonschema-form';
 import RadioWidget from './widgets/radio';
 import ArrayField from './fields/array';
+/* global fetch */
 
 const widgets = {
   RadioWidget,
@@ -124,7 +125,6 @@ class Form extends React.Component {
   }
 
   onSubmit(event) {
-    /* eslint-env browser */
     this.setState({
       ...this.state,
       status: 'sending',
