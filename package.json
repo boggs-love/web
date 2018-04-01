@@ -19,6 +19,7 @@
     "gatsby-source-filesystem": "^1.5.20",
     "gatsby-transformer-remark": "^1.7.37",
     "gatsby-transformer-sharp": "^1.6.19",
+    "gatsby-transformer-yaml": "^1.5.16",
     "immutable": "^3.8.2",
     "modernizr": "^3.5.0",
     "modernizr-loader": "^1.0.1",

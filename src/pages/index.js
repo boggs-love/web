@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import 'styles/styles.scss';
-import Form from 'app/components/form';
 import Background from 'app/components/background';
 import Stylesheet from 'app/components/stylesheet';
+import RSVP from 'app/components/sections/rsvp/rsvp';
+import Registry from 'app/components/sections/registry';
 
 const Index = ({ data }) => (
   <div>
@@ -20,14 +21,10 @@ const Index = ({ data }) => (
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-8 col-xl-7 pl-0 pr-0">
-            <section className="pt-3 pb-3">
+            <section className="pt-4 pb-4">
               <div className="container">
-                <div className="row">
-                  <div className="col-12">
-                    <h4 className="text-center">RSVP</h4>
-                    <Form accepted={data.accepted} declined={data.declined} />
-                  </div>
-                </div>
+                <RSVP accepted={data.accepted} declined={data.declined} />
+                <Registry />
               </div>
             </section>
           </div>
@@ -76,6 +73,20 @@ query MainQuery {
   }
   declined: file(name: {eq: "declined"}) {
     ...markdownFile
+  }
+  registry: allFile(filter: {relativeDirectory: {eq: "registry"}}) {
+    edges {
+      node {
+        data: childRegistryYaml {
+          id
+          title
+          logo {
+            url: publicURL
+          }
+          url
+        }
+      }
+    }
   }
 }
 
