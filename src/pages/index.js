@@ -24,7 +24,7 @@ const Index = ({ data }) => (
             <section className="pt-4 pb-4">
               <div className="container">
                 <RSVP accepted={data.accepted} declined={data.declined} />
-                <Registry />
+                <Registry registry={data.registry} />
               </div>
             </section>
           </div>
