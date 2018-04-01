@@ -16,7 +16,7 @@ const Registry = ({ registry }) => {
   return (
     <Section title="Gift Registry">
       <div className="row justify-content-center">
-        <div className="col-4">
+        <div className="col-6 col-sm-4">
           {locations}
         </div>
       </div>
