@@ -1,4 +1,3 @@
-
 $font-family-sans-serif: 'Lato', sans-serif;
 
 @import "~bootstrap/scss/bootstrap";
@@ -50,11 +49,22 @@ header {
   background-color: rgba($white, 0.9);
   h1 {
     font-family: 'Kaushan Script', cursive;
+    a {
+      color: inherit;
+      &:hover {
+        text-decoration: none;
+        color: $primary;
+      }
+    }
   }
 }
 
 h4 {
-  border-bottom: 1px solid $gray-200;
+  border-bottom: 1px solid $gray-400;
+}
+
+h6 {
+  font-weight: 700;
 }
 
 section {

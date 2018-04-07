@@ -8,7 +8,7 @@ const Registry = ({ registry }) => {
   }
 
   const locations = registry.edges.map(({ node }) => (
-    <a key={node.data.id} href={node.data.url} className="d-block mt-3">
+    <a key={node.data.id} href={node.data.url} className="d-block mb-5 mt-5">
       <img src={node.data.logo.url} alt={node.data.title} className="img-fluid" />
     </a>
   ));

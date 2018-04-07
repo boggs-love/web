@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import 'styles/styles.scss';
+import Header from 'app/components/header';
 import Background from 'app/components/background';
 import Stylesheet from 'app/components/stylesheet';
 import RSVP from 'app/components/sections/rsvp/rsvp';
 import Registry from 'app/components/sections/registry';
+import Travel from 'app/components/sections/travel';
 
 const Index = ({ data }) => (
   <div>
@@ -15,9 +17,7 @@ const Index = ({ data }) => (
     <Stylesheet href="https://fonts.googleapis.com/css?family=Kaushan+Script|Lato" />
     <Background data={data.background} />
     <div className="app">
-      <header className="fixed-top pt-1 pb-1">
-        <h1 className="text-center">{data.site.siteMetadata.title}</h1>
-      </header>
+      <Header title={data.site.siteMetadata.title} />
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-8 col-xl-7 pl-0 pr-0">
@@ -25,6 +25,7 @@ const Index = ({ data }) => (
               <div className="container">
                 <RSVP accepted={data.accepted} declined={data.declined} />
                 <Registry registry={data.registry} />
+                <Travel travel={data.travel} />
               </div>
             </section>
           </div>
@@ -84,6 +85,19 @@ query MainQuery {
             url: publicURL
           }
           url
+        }
+      }
+    }
+  }
+  travel: allFile(filter: {relativeDirectory: {eq: "travel"}}) {
+    edges {
+      node {
+        data: childTravelYaml {
+          id
+          name
+          title
+          url
+          address
         }
       }
     }

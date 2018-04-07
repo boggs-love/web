@@ -213,7 +213,7 @@ class Form extends React.Component {
     const liveValidate = ['has-errors', 'validating'].includes(this.state.status);
 
     return (
-      <div>
+      <div className="mb-5">
         {error}
         <SchemaForm
           schema={schema}
