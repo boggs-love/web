@@ -13,7 +13,7 @@ const Travel = ({ travel }) => {
       <h6>{node.data.name}</h6>
       <div>
         <a href={node.data.url} className="d-block">{node.data.title}</a>
-        {node.data.address.map(line => <div key={line}>{line}</div>)}
+        {node.data.address.map(line => (<div key={line}>{line}</div>))}
       </div>
     </div>
   ));
