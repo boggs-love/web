@@ -53,7 +53,7 @@ const schema = {
       minLength: 10,
       maxLength: 20,
     },
-    guest: {
+    guests: {
       title: 'Additional Guests',
       single: 'Guest',
       type: 'array',
@@ -80,7 +80,7 @@ const uiSchema = {
       inputType: 'tel',
     },
   },
-  guest: {
+  guests: {
     'ui:options': {
       orderable: false,
     },
