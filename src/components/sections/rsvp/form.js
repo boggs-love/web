@@ -212,6 +212,10 @@ class Form extends React.Component {
     const disabled = this.state.status === 'sending';
     const liveValidate = ['has-errors', 'validating'].includes(this.state.status);
 
+    if (this.props.event) {
+      schema.properties.attending.title = `Coming to the ${this.props.event}?`;
+    }
+
     return (
       <div className="mb-5">
         {error}
@@ -258,6 +262,11 @@ const contentShape = {
 Form.propTypes = {
   accepted: PropTypes.shape(contentShape).isRequired,
   declined: PropTypes.shape(contentShape).isRequired,
+  event: PropTypes.string,
+};
+
+Form.defaultProps = {
+  event: undefined,
 };
 
 export default Form;
