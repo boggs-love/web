@@ -42,4 +42,20 @@ Travel.defaultProps = {
   travel: null,
 };
 
+export const query = graphql`
+fragment TravelFiles on FileConnection {
+  edges {
+    node {
+      data: childTravelYaml {
+        id
+        name
+        title
+        url
+        address
+      }
+    }
+  }
+}
+`;
+
 export default Travel;

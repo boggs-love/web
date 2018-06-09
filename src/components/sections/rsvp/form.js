@@ -134,7 +134,10 @@ class Form extends React.Component {
     // Submit the RSVP
     fetch('/api/rsvp', {
       method: 'POST',
-      body: JSON.stringify(event.formData),
+      body: JSON.stringify({
+        type: this.props.event.type,
+        ...event.formData,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -212,8 +215,8 @@ class Form extends React.Component {
     const disabled = this.state.status === 'sending';
     const liveValidate = ['has-errors', 'validating'].includes(this.state.status);
 
-    if (this.props.event) {
-      schema.properties.attending.title = `Coming to the ${this.props.event}?`;
+    if (this.props.event.title) {
+      schema.properties.attending.title = `Coming to the ${this.props.event.title}?`;
     }
 
     return (
@@ -262,7 +265,11 @@ const contentShape = {
 Form.propTypes = {
   accepted: PropTypes.shape(contentShape).isRequired,
   declined: PropTypes.shape(contentShape).isRequired,
-  event: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  event: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    title: PropTypes.string,
+  }),
 };
 
 Form.defaultProps = {

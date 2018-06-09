@@ -34,4 +34,21 @@ Registry.defaultProps = {
   registry: null,
 };
 
+export const query = graphql`
+fragment RegistryFiles on FileConnection {
+  edges {
+    node {
+      data: childRegistryYaml {
+        id
+        title
+        logo {
+          url: publicURL
+        }
+        url
+      }
+    }
+  }
+}
+`;
+
 export default Registry;

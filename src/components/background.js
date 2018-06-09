@@ -52,40 +52,47 @@ class Background extends React.Component {
 
     const first = sizes.first();
 
-    const styles = sizes.map(size => (
-      size.srcSet.map((src, dppx) => {
-        // The first size is the largest. If the screen exceeds this size, we
-        // should at least show the largest size even if it's not big enough.
-        if (first === size) {
+    const styles = [
+      `
+        .background {
+          background-position: ${this.props.position}
+        }
+      `,
+      sizes.map(size => (
+        size.srcSet.map((src, dppx) => {
+          // The first size is the largest. If the screen exceeds this size, we
+          // should at least show the largest size even if it's not big enough.
+          if (first === size) {
+            return `
+              @media
+                only screen and (-webkit-min-device-pixel-ratio: ${dppx}),
+                only screen and (min-device-pixel-ratio: ${dppx}),
+                only screen and (min-resolution: ${dppx}dppx) {
+                  .background {
+                    background-image: url('${src}');
+                  }
+                }
+            `;
+          }
+
           return `
             @media
-              only screen and (-webkit-min-device-pixel-ratio: ${dppx}),
-              only screen and (min-device-pixel-ratio: ${dppx}),
-              only screen and (min-resolution: ${dppx}dppx) {
+              only screen and (max-width: ${size.width}px) and (-webkit-min-device-pixel-ratio: ${dppx}),
+              only screen and (max-width: ${size.width}px) and (min-device-pixel-ratio: ${dppx}),
+              only screen and (max-width: ${size.width}px) and (min-resolution: ${dppx}dppx) {
                 .background {
                   background-image: url('${src}');
                 }
               }
           `;
-        }
-
-        return `
-          @media
-            only screen and (max-width: ${size.width}px) and (-webkit-min-device-pixel-ratio: ${dppx}),
-            only screen and (max-width: ${size.width}px) and (min-device-pixel-ratio: ${dppx}),
-            only screen and (max-width: ${size.width}px) and (min-resolution: ${dppx}dppx) {
-              .background {
-                background-image: url('${src}');
-              }
-            }
-        `;
-      }).join('\n')
-    )).join('\n');
+        }).join('\n')
+      )).toArray(),
+    ].join('\n');
 
     return (
       <div className="background-wrapper">
         <Helmet>
-          <style>
+          <style type="text/css">
             {styles}
           </style>
         </Helmet>
@@ -99,6 +106,35 @@ Background.propTypes = {
   data: PropTypes.shape({
     sizes: PropTypes.object,
   }).isRequired,
+  position: PropTypes.string.isRequired,
 };
+
+export const query = graphql`
+fragment BackgroundImage on ImageSharpResolutions {
+  width
+  srcSet
+  srcSetWebp
+}
+
+fragment BackgroundImages on File {
+  sizes: childImageSharp {
+    xs: resolutions(width: 576, quality: 85) {
+      ...BackgroundImage
+    }
+    sm: resolutions(width: 768, quality: 85) {
+      ...BackgroundImage
+    }
+    md: resolutions(width: 992, quality: 85) {
+      ...BackgroundImage
+    }
+    lg: resolutions(width: 1200, quality: 85) {
+      ...BackgroundImage
+    }
+    xl: resolutions(width: 1920, quality: 85) {
+      ...BackgroundImage
+    }
+  }
+}
+`;
 
 export default Background;
