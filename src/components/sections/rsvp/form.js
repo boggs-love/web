@@ -4,6 +4,7 @@ import { Alert } from 'reactstrap';
 import SchemaForm from 'react-jsonschema-form';
 import RadioWidget from './widgets/radio';
 import ArrayField from './fields/array';
+import SongSelect from './fields/song-select';
 
 const widgets = {
   RadioWidget,
@@ -64,11 +65,27 @@ const schema = {
         },
       },
     },
+    songs: {
+      type: 'array',
+      title: 'What would you like to dance to?',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+          },
+        },
+      },
+    },
     note: {
       title: "Anything else you'd like to say?",
       type: 'string',
     },
   },
+};
+
+const fields = {
+  'song-select': SongSelect,
 };
 
 const uiSchema = {
@@ -84,6 +101,9 @@ const uiSchema = {
     'ui:options': {
       orderable: false,
     },
+  },
+  songs: {
+    'ui:field': 'song-select',
   },
   note: {
     'ui:widget': 'textarea',
@@ -224,6 +244,7 @@ class Form extends React.Component {
         {error}
         <SchemaForm
           schema={schema}
+          fields={fields}
           className={liveValidate ? 'was-validated' : undefined}
           uiSchema={{
             ...uiSchema,
