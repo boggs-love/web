@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, debounceTime, switchMap, map, catchError } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import 'styles/select.scss';
 
 class SongSelect extends React.Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class SongSelect extends React.Component {
           closeOnSelect={false}
           optionRenderer={option => (
             <div className="media">
-              <img className="align-self-center mr-3" style={{ maxWidth: '40px' }} src={option.image} alt={option.album} />
+              <img className="align-self-center mr-3 option-image" src={option.image} alt={option.album} />
               <div className="media-body">
                 <strong className="mt-0">{option.name}</strong><br />
                 {option.artists.join(', ')} · {option.album}
@@ -90,7 +90,7 @@ class SongSelect extends React.Component {
           )}
           valueRenderer={value => (
             <div className="media">
-              <img className="align-self-center mr-1" style={{ maxWidth: '16px' }} src={value.image} alt={value.album} />
+              <img className="align-self-center mr-1 value-image" src={value.image} alt={value.album} />
               <div className="media-body">
                 {value.name}
               </div>

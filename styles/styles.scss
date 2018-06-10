@@ -1,6 +1,4 @@
-$font-family-sans-serif: 'Lato', sans-serif;
-$primary: #223e7c;
-
+@import "variables";
 @import "~bootstrap/scss/bootstrap";
 
 body {
@@ -69,4 +67,8 @@ h6 {
 section {
   background-color: rgba($white, 0.95);
   margin-top: calc( 100vh - 9.25rem);
+}
+
+Select.is-focused {
+  border-color: $primary;
 }

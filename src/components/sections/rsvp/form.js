@@ -239,6 +239,10 @@ class Form extends React.Component {
       schema.properties.attending.title = `Coming to the ${this.props.event.title}?`;
     }
 
+    if (this.props.event.type !== 'wedding') {
+      delete schema.properties.songs;
+    }
+
     return (
       <div className="mb-5">
         {error}

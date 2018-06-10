@@ -1,0 +1,23 @@
+$font-family-sans-serif: 'Lato', sans-serif;
+$primary: #223e7c;
+
+@import '~bootstrap/scss/_functions';
+@import "~bootstrap/scss/_variables";
+
+$select-text-color: $input-color;
+$select-input-bg: $input-bg;
+$select-input-height: 40px;
+$select-border-color: $input-border-color;
+$select-input-border-radius: $input-border-radius;
+$select-input-bg-disabled: $input-disabled-bg;
+$select-input-border-focus: $primary;
+$select-input-box-shadow-focus: $input-focus-box-shadow;
+
+$select-option-focused-bg: $primary;
+$select-option-focused-color: $white;
+
+$select-item-color: $primary;
+$select-item-bg: $gray-100;
+$select-item-border-color: $primary;
+$select-item-hover-color: $white;
+$select-item-hover-bg: $primary;
