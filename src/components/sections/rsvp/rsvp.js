@@ -19,10 +19,6 @@ RSVP.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-RSVP.defaultProps = {
-  title: undefined,
-};
-
 export const query = graphql`
 fragment RSVPMarkdown on File {
   data: childMarkdownRemark {

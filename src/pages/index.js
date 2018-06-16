@@ -4,10 +4,13 @@ import PageWrapper from 'app/components/page-wrapper';
 import RSVP from 'app/components/sections/rsvp/rsvp';
 import Registry from 'app/components/sections/registry';
 import Travel from 'app/components/sections/travel';
+import Party from 'app/components/sections/party';
 
 const Index = ({ data }) => (
   <PageWrapper background={data.background} position="bottom right">
     <RSVP type="wedding" accepted={data.accepted} declined={data.declined} />
+    <Party title="Ladies" party={data.ladies} />
+    <Party title="Gentlemen" party={data.gentlemen} />
     <Registry registry={data.registry} />
     <Travel travel={data.travel} />
   </PageWrapper>
@@ -15,9 +18,13 @@ const Index = ({ data }) => (
 
 Index.propTypes = {
   data: PropTypes.shape({
-    background: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
+    background: PropTypes.object,
+    accepted: PropTypes.object,
+    declined: PropTypes.object,
+    ladies: PropTypes.object,
+    gentlemen: PropTypes.object,
+    registry: PropTypes.object,
+    travel: PropTypes.object,
   }).isRequired,
 };
 
@@ -32,10 +39,16 @@ query IndexQuery {
   declined: file(name: {eq: "declined"}) {
     ...RSVPMarkdown
   }
-  registry: allFile(filter: {relativeDirectory: {eq: "registry"}}) {
+  ladies: allFile(filter: {relativeDirectory: {eq: "ladies"}, extension: {eq: "md"}}, sort: {order: ASC, fields: [relativePath]}) {
+    ...PartyFiles
+  }
+  gentlemen: allFile(filter: {relativeDirectory: {eq: "gentlemen"}, extension: {eq: "md"}}, sort: {order: ASC, fields: [relativePath]}) {
+    ...PartyFiles
+  }
+  registry: allFile(filter: {relativeDirectory: {eq: "registry"}, extension: {eq: "yaml"}}) {
     ...RegistryFiles
   }
-  travel: allFile(filter: {relativeDirectory: {eq: "travel"}}) {
+  travel: allFile(filter: {relativeDirectory: {eq: "travel"}, extension: {eq: "yaml"}}) {
     ...TravelFiles
   }
 }
