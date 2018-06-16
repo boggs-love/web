@@ -1,14 +1,14 @@
 ---
 name: Terrence Winston
 ---
-**How long have you known Jeremy?**  
+###### How long have you known Jeremy?
 I've known Jeremy for, at least, four years.
 
-**How did you meet Jeremy?**  
+###### How did you meet Jeremy?
 I don’t recall with absolute certainty. If not through the Technology Commons;
 it would have been through Angie or Jaynan.
 
-**Favorite memory with Jeremy?**  
+###### Favorite memory with Jeremy?
 There are many: Game of Axis and Allies, D&D Campaigns galore, visits to Lucky’s
 for beer and pizza; however, I would have to say that it was one of the earliest
 memories that I have with Jeremy that stands out.
