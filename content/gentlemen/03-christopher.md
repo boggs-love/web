@@ -1,5 +1,5 @@
 ---
-name: Terrence Winston
+name: Christopher Stewart
 ---
 ###### How long have you known Jeremy?
 11 years
@@ -11,7 +11,7 @@ and I overheard him talking about a video game series that I knew about and it
 sort of went from there. We had very similar hobbies that we enjoyed talking
 about
 
-###### Favorite memory with Jeremy? 
+###### Favorite memory with Jeremy?
 My favorite memory is probably the time that Jeremy, Jayne and I went camping
 at Tosohatchee. Jeremy brought his old telescope and we decided to chill and
 look at the night sky. Jayne and Jeremy even claim to have seen a UFO that
