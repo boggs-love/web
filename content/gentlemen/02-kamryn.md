@@ -1,5 +1,6 @@
 ---
 name: Kamryn Lamons
+image: ./images/kamryn.jpg
 ---
 ###### How long have you known Jeremy?
 I've known Jeremy for, at least, four years.

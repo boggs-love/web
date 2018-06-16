@@ -1,5 +1,6 @@
 ---
 name: Terrence Winston
+image: ./images/terrance.jpg
 ---
 ###### How long have you known Jeremy?
 Over 5 years (fb friends since february 2013)

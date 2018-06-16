@@ -1,5 +1,6 @@
 ---
 name: Amelia Stickland
+image: ./images/amelia.jpg
 ---
 ###### How long have you known Amanda?
 5 years

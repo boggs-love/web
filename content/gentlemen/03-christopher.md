@@ -1,5 +1,6 @@
 ---
 name: Christopher Stewart
+image: ./images/christopher.jpg
 ---
 ###### How long have you known Jeremy?
 11 years
