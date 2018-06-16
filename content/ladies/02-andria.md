@@ -1,5 +1,5 @@
 ---
-name: Andira Barratt
+name: Andria Barratt
 ---
 **How long have you known Amanda?**  
 
