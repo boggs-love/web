@@ -24,9 +24,13 @@ class Background extends React.Component {
   }
 
   render() {
-    // If webp support hasn't been determined, return nothing.
+    // If webp support hasn't been determined, return only the metadata.
     if (this.state.webp === null) {
-      return null;
+      return (
+        <Helmet>
+          <meta name="og:image" content={this.props.data.meta.original.src} />
+        </Helmet>
+      );
     }
 
     const sizes = new OrderedMap(this.props.data.sizes)
@@ -95,6 +99,7 @@ class Background extends React.Component {
           <style type="text/css">
             {styles}
           </style>
+          <meta name="og:image" content={this.props.data.meta.original.src} />
         </Helmet>
         <div className="background" />
       </div>
@@ -104,6 +109,7 @@ class Background extends React.Component {
 
 Background.propTypes = {
   data: PropTypes.shape({
+    meta: PropTypes.object,
     sizes: PropTypes.object,
   }).isRequired,
   position: PropTypes.string.isRequired,
@@ -117,6 +123,11 @@ fragment BackgroundImage on ImageSharpResolutions {
 }
 
 fragment BackgroundImages on File {
+  meta: childImageSharp {
+    original {
+      src
+    }
+  }
   sizes: childImageSharp {
     xs: resolutions(width: 576, quality: 85) {
       ...BackgroundImage
