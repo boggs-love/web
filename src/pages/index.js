@@ -45,10 +45,10 @@ query IndexQuery {
   gentlemen: allFile(filter: {relativeDirectory: {eq: "gentlemen"}, extension: {eq: "md"}}, sort: {order: ASC, fields: [relativePath]}) {
     ...PartyFiles
   }
-  registry: allFile(filter: {relativeDirectory: {eq: "registry"}, extension: {eq: "yaml"}}) {
+  registry: allFile(filter: {relativeDirectory: {eq: "registry"}, extension: {eq: "yaml"}}, sort: {order: ASC, fields: [relativePath]}) {
     ...RegistryFiles
   }
-  travel: allFile(filter: {relativeDirectory: {eq: "travel"}, extension: {eq: "yaml"}}) {
+  travel: allFile(filter: {relativeDirectory: {eq: "travel"}, extension: {eq: "yaml"}}, sort: {order: ASC, fields: [relativePath]}) {
     ...TravelFiles
   }
 }

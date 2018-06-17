@@ -10,22 +10,26 @@ const Registry = ({ registry }) => {
   const locations = registry.edges.map(({ node }) => {
     if (node.data.logo) {
       return (
-        <a key={node.data.id} href={node.data.url} className="d-block col-6 col-sm-4 mb-5">
-          <img src={node.data.logo.url} alt={node.data.title} className="img-fluid" />
-        </a>
+        <div key={node.data.id} className="row justify-content-center mb-5">
+          <a href={node.data.url} className="d-block col-6 col-sm-4">
+            <img src={node.data.logo.url} alt={node.data.title} className="img-fluid" />
+          </a>
+        </div>
       );
     }
 
     return (
-      <div key={node.data.id} className="mb-5">
-        {node.data.description}
+      <div key={node.data.id} className="row mb-5">
+        <div className="col text-center">
+          {node.data.description}
+        </div>
       </div>
     );
   });
 
   return (
     <Section title="Gift Registry">
-      <div className="row justify-content-center mt-5">
+      <div className="mt-5">
         {locations}
       </div>
     </Section>
