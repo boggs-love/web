@@ -8,21 +8,27 @@ const Registry = ({ registry }) => {
   }
 
   const locations = registry.edges.map(({ node }) => {
-    if (node.data.logo) {
-      return (
-        <div key={node.data.id} className="row justify-content-center mb-5">
-          <a href={node.data.url} className="d-block col-6 col-sm-4">
-            <img src={node.data.logo.url} alt={node.data.title} className="img-fluid" />
-          </a>
+    let row;
+
+    console.log("NODE", node);
+
+    if (node.data[0].html) {
+      row = (
+        <div className="col text-center">
+          <div dangerouslySetInnerHTML={{ __html: node.data[0].html }} />
         </div>
+      );
+    } else if (node.data[0].logo) {
+      row = (
+        <a href={node.data[0].url} className="d-block col-6 col-sm-4">
+          <img src={node.data[0].logo.url} alt={node.data[0].title} className="img-fluid" />
+        </a>
       );
     }
 
     return (
-      <div key={node.data.id} className="row mb-5">
-        <div className="col text-center">
-          {node.data.description}
-        </div>
+      <div key={node.data[0].id} className="row justify-content-center mb-5">
+        {row}
       </div>
     );
   });
@@ -50,14 +56,18 @@ export const query = graphql`
 fragment RegistryFiles on FileConnection {
   edges {
     node {
-      data: childRegistryYaml {
+      data: children {
         id
-        title
-        description
-        logo {
-          url: publicURL
+        ... on MarkdownRemark {
+          html
         }
-        url
+        ... on RegistryYaml {
+          title
+          logo {
+            url: publicURL
+          }
+          url
+        }
       }
     }
   }

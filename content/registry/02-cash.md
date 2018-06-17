@@ -1,0 +1,1 @@
+Any cash gifts will be put towards a down payment on our first home. For your convenience, feel free utilize online payment methods: [Cash App](https://cash.me/$BoggsLove), [Venmo](https://venmo.com/BoggsLove), or [PayPal](https://www.paypal.me/BoggsLove).
