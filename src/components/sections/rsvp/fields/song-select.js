@@ -79,15 +79,24 @@ class SongSelect extends React.Component {
           onInputChange={this.onInputChange}
           filterOption={option => option}
           closeOnSelect={false}
-          optionRenderer={option => (
-            <div className="media">
-              <img className="align-self-center mr-3 option-image" src={option.image} alt={option.album} />
-              <div className="media-body">
-                <strong className="mt-0">{option.name}</strong><br />
-                {option.artists.join(', ')} · {option.album}
+          optionRenderer={(option) => {
+            let image;
+            if (option.image) {
+              image = (
+                <img className="align-self-center mr-3 option-image" src={option.image} alt={option.album} />
+              );
+            }
+
+            return (
+              <div className="media">
+                {image}
+                <div className="media-body">
+                  <strong className="mt-0">{option.name}</strong><br />
+                  {option.artists.join(', ')} · {option.album}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          }}
           valueRenderer={value => (
             <div className="media">
               <img className="align-self-center mr-1 value-image" src={value.image} alt={value.album} />
