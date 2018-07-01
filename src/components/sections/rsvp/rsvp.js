@@ -8,7 +8,7 @@ const RSVP = ({ type, accepted, declined }) => {
   const event = events.find(e => e.type === type);
 
   return (
-    <Section title={event.title ? `${event.title} RSVP` : 'RSVP'}>
+    <Section title="RSVP">
       <Form event={event} type={type} accepted={accepted} declined={declined} />
     </Section>
   );
