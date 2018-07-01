@@ -7,7 +7,7 @@ import Travel from 'app/components/sections/travel';
 import Party from 'app/components/sections/party';
 
 const Index = ({ data }) => (
-  <PageWrapper background={data.background} position="bottom right">
+  <PageWrapper background={data.background} event={data.event} position="bottom right">
     <RSVP type="wedding" accepted={data.accepted} declined={data.declined} />
     <Party title="Ladies" party={data.ladies} />
     <Party title="Gentlemen" party={data.gentlemen} />
@@ -19,6 +19,7 @@ const Index = ({ data }) => (
 Index.propTypes = {
   data: PropTypes.shape({
     background: PropTypes.object,
+    event: PropTypes.object,
     accepted: PropTypes.object,
     declined: PropTypes.object,
     ladies: PropTypes.object,
@@ -33,10 +34,13 @@ query IndexQuery {
   background: file(relativePath: {eq: "background/index.jpg"}) {
     ...BackgroundImages
   }
-  accepted: file(name: {eq: "accepted"}) {
+  event: file(relativePath: {eq: "events/wedding.yaml"}) {
+    ...EventFile
+  }
+  accepted: file(relativePath: {eq: "accepted.yaml"}) {
     ...RSVPMarkdown
   }
-  declined: file(name: {eq: "declined"}) {
+  declined: file(relativePath: {eq: "declined.yaml"}) {
     ...RSVPMarkdown
   }
   ladies: allFile(filter: {relativeDirectory: {eq: "ladies"}, extension: {eq: "md"}}, sort: {order: ASC, fields: [relativePath]}) {

@@ -4,7 +4,7 @@ import PageWrapper from 'app/components/page-wrapper';
 import RSVP from 'app/components/sections/rsvp/rsvp';
 
 const Rehearsal = ({ data }) => (
-  <PageWrapper background={data.background} position="bottom left">
+  <PageWrapper background={data.background} event={data.event} position="bottom left">
     <RSVP type="rehearsal" accepted={data.accepted} declined={data.declined} />
   </PageWrapper>
 );
@@ -22,10 +22,13 @@ query RehersalQuery {
   background: file(relativePath: {eq: "background/rehearsal.jpg"}) {
     ...BackgroundImages
   }
-  accepted: file(name: {eq: "accepted"}) {
+  event: file(relativePath: {eq: "events/rehearsal.yaml"}) {
+    ...EventFile
+  }
+  accepted: file(relativePath: {eq: "accepted.yaml"}) {
     ...RSVPMarkdown
   }
-  declined: file(name: {eq: "declined"}) {
+  declined: file(relativePath: {eq: "declined.yaml"}) {
     ...RSVPMarkdown
   }
 }
