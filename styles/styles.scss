@@ -1,6 +1,15 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .w#{$infix}-100 { width: 100% !important; }
+    .w#{$infix}-auto { width: auto !important; }
+  }
+}
+
 body {
   padding-top: 4rem;
 }
@@ -64,9 +73,13 @@ h6 {
   font-weight: 700;
 }
 
+.details {
+  height: calc(100vh - 4em);
+  color:  rgba($white, 0.95);
+}
+
 section {
   background-color: rgba($white, 0.95);
-  margin-top: calc( 100vh - 9.25rem);
 }
 
 Select.is-focused {
