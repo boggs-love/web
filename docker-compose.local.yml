@@ -1,8 +1,8 @@
-version: '3'
+version: '3.4'
 services:
   web:
     build:
-      dockerfile: Dockerfile.local
+      target: builder
     image: boggs/web:local
     volumes:
       - ./:/app

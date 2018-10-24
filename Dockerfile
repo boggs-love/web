@@ -4,6 +4,8 @@ WORKDIR /app
 COPY ./ /app
 RUN npm install --unsafe-perm --production \
   && npm run-script build
+CMD npm install \
+  && npm run-script develop
 
 # Service
 FROM nginx:1.13
